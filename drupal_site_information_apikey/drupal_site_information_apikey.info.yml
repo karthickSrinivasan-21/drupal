@@ -1,0 +1,5 @@
+name: Node access with Site API Key
+type: module
+description: site information for Custom Integration.
+package: custom
+core: '8.x'

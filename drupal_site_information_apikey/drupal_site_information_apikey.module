@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Form alter.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function drupal_site_information_apikey_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'system_site_information_settings') {
+    $config = Drupal::config('system.site');
+    $form['site_information']['siteapikey'] = [
+      '#type' => 'textfield',
+      '#title' => t("Site API Key"),
+      '#default_value' => $config->get('siteapikey'),
+    ];
+    $form['actions']['submit']['#value'] = 'Update Configuration';
+    $form['#submit'][] = 'mymodule_handler';
+  }
+}
+
+/**
+ * Custom submit handler.
+ */
+function mymodule_handler($form, &$form_state) {
+  \Drupal::configFactory()->getEditable('system.site')->set('siteapikey', $form_state->getValue('siteapikey'))->save();
+  drupal_set_message('Site API Key has been saved with ' . $form_state->getValue('siteapikey'));
+}

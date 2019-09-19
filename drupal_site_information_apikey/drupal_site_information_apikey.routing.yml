@@ -1,0 +1,7 @@
+drupal_site_information_apikey.siteapikeyvalidation:
+  path: '/drupal_site_information_apikey/{node}/{siteapikey}'
+  defaults:
+    _controller: '\Drupal\drupal_site_information_apikey\Controller\SiteapikeyController::siteapikeyvalidation'
+    _title: 'siteapikey Validation'
+  requirements:
+    _permission: 'access content'
